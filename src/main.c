@@ -13,9 +13,7 @@ void shell_init(){
         printf("%sshell@%sbleed-kernel%s$ ", RGB_FG(212, 44, 44), GRAY_FG, RESET);
 
         bytes = 0;
-        while ((bytes = syscall_read(0, buffer, sizeof(buffer)-1)) == 0) {
-            // yield here
-        }
+        while ((bytes = syscall_read(0, buffer, sizeof(buffer)-1)) == 0){ } // maybe this syscall should be blocking, it would make sense, for now lets wait
 
         buffer[bytes] = '\0';
         if (bytes > 0 && buffer[bytes-1] == '\n') buffer[--bytes] = '\0';

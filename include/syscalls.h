@@ -5,6 +5,7 @@ enum {
     SYS_WRITE,
     SYS_EXIT,
     SYS_CLEAR,
+    SYS_YIELD,
 };
 
 static inline long syscall_read(int fd, void *buf, unsigned long len) {
@@ -54,4 +55,14 @@ static inline void syscall_clear(int fd) {
           "D"(fd)
         : "rcx", "r11", "memory"
     );
+}
+
+static inline void syscall_yield() {
+    __asm__ volatile (
+        "int $0x80"
+        :
+        : "a"(SYS_YIELD)
+        : "rcx", "r11", "memory"
+    );
+    __builtin_unreachable();
 }

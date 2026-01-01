@@ -2,13 +2,10 @@
 #include <commands/commands.h>
 #include <string.h>
 #include <ansii.h>
+#include <libc/printf.h>
 
 void cmd_unknown(const char *cmd, long cmd_len) {
     (void)cmd; (void)cmd_len;
 
-    syscall_write(1, cmd, cmd_len);
-    syscall_write(1, LIGHT_GRAY_FG, strlen(LIGHT_GRAY_FG));
-    syscall_write(1, ": ", 2);
-    syscall_write(1, RESET, strlen(RESET));
-    syscall_write(1, "Unknown command\n", strlen("Unknown command\n"));
+    printf("%s%s:%s Unknown Command\n", cmd, LIGHT_GRAY_FG, RESET);
 }
