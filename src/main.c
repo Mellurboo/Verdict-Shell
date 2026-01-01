@@ -4,8 +4,7 @@
 #include <commands/commands.h>
 #include <ansii.h>
 
-__attribute__((noreturn))
-void _start(void) {
+void shell_init(){
     char buffer[BUFFER_SIZE];
     long bytes;
 
@@ -47,4 +46,20 @@ void _start(void) {
             cmd_unknown(buffer, cmd_len);
         }
     }
+}
+
+__attribute__((noreturn))
+void _start(void) {
+    syscall_write(1, "Welcome to ", strlen("Welcome to "));
+    syscall_write(1, RGB_FG(212, 44, 44), strlen(RGB_FG(212, 44, 44)));
+    syscall_write(1, "Bleed-Kernel\n", strlen("Bleed-Kernel!\n"));
+    syscall_write(1, RESET, strlen(RESET));
+    syscall_write(1, "Running Userspace Shell: ", strlen("Running Userspace Shell: "));
+    syscall_write(1, RGB_FG(212, 44, 44), strlen(RGB_FG(212, 44, 44)));
+    syscall_write(1, "Verdict\n", strlen("Verdict\n"));
+    syscall_write(1, RESET, strlen(RESET));
+    syscall_write(1, "Check us out at bleedkernel.com\n", strlen("Check us out at bleedkernel.com\n"));
+
+    shell_init();
+    __builtin_unreachable();
 }
