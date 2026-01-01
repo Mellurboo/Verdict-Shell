@@ -3,18 +3,14 @@
 #include <libc/string.h>
 #include <commands/commands.h>
 #include <ansii.h>
+#include <libc/printf.h>
 
 void shell_init(){
     char buffer[BUFFER_SIZE];
     long bytes;
 
     while (1) {
-        syscall_write(1, RGB_FG(212, 44, 44), strlen(RGB_FG(212, 44, 44)));
-        syscall_write(1, "shell@", strlen("shell@"));
-        syscall_write(1, GRAY_FG, strlen(GRAY_FG));
-        syscall_write(1, "bleed-kernel", strlen("bleed-kernel"));
-        syscall_write(1, RGB_FG(255, 255, 255), strlen(RGB_FG(255, 255, 255)));
-        syscall_write(1, "$ ", strlen("$ "));
+        printf("%sshell@%sbleed-kernel%s$ ", RGB_FG(212, 44, 44), GRAY_FG, RESET);
 
         bytes = 0;
         while ((bytes = syscall_read(0, buffer, sizeof(buffer)-1)) == 0) {
@@ -50,15 +46,8 @@ void shell_init(){
 
 __attribute__((noreturn))
 void _start(void) {
-    syscall_write(1, "Welcome to ", strlen("Welcome to "));
-    syscall_write(1, RGB_FG(212, 44, 44), strlen(RGB_FG(212, 44, 44)));
-    syscall_write(1, "Bleed-Kernel\n", strlen("Bleed-Kernel!\n"));
-    syscall_write(1, RESET, strlen(RESET));
-    syscall_write(1, "Running Userspace Shell: ", strlen("Running Userspace Shell: "));
-    syscall_write(1, RGB_FG(212, 44, 44), strlen(RGB_FG(212, 44, 44)));
-    syscall_write(1, "Verdict\n", strlen("Verdict\n"));
-    syscall_write(1, RESET, strlen(RESET));
-    syscall_write(1, "Check us out at bleedkernel.com\n", strlen("Check us out at bleedkernel.com\n"));
+    printf("Welcome to %sBleed-Kernel%s\nRunning Userspace Shell:%sVerdict%s\nCheck us out at bleedkernel.com\n",
+    RGB_FG(212, 44, 44), RESET, RGB_FG(212, 44, 44), RESET);
 
     shell_init();
     __builtin_unreachable();
