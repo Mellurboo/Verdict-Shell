@@ -6,7 +6,7 @@ ELF_TARGET_64 = verdict
 # Flag Options for Compilers
 #
 CFLAGS ?=
-COMMON_CFLAGS = -static -Wall -nostdlib -ffreestanding -Wextra -Werror -I include
+COMMON_CFLAGS = -static -Wall -nostdlib -ffreestanding -fno-stack-check -fno-stack-protector -Wextra -Werror -I include
 
 ELF_BIN_DIR_64 = bin
 ELF_OBJ_DIR_64 = $(ELF_BIN_DIR_64)/obj
@@ -36,7 +36,7 @@ $(ELF_OBJ_DIR_64)/%.gcc.o: src/%.c
 	$(CC) $(COMMON_CFLAGS) $(CFLAGS) -m64 -c $< -o $@
 
 
-run: $(ELF_TARGET_64)
+build: $(ELF_TARGET_64)
 	@./$(ELF_BIN_DIR_64)/$(ELF_TARGET_64)
 
 #
@@ -46,4 +46,4 @@ clean:
 	rm -rf bin
 	rm -rf .vscode
 
-.PHONY: all clean run debug
+.PHONY: all clean -fno-stack-check debug

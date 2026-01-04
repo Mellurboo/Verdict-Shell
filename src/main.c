@@ -10,7 +10,6 @@ void shell_init(){
     long bytes;
 
     while (1) {
-        printf("%sshell@%sbleed-kernel%s$ ", RGB_FG(212, 44, 44), GRAY_FG, RESET);
 
         bytes = 0;
         while ((bytes = syscall_read(0, buffer, sizeof(buffer)-1)) == 0){ } // maybe this syscall should be blocking, it would make sense, for now lets wait
@@ -39,6 +38,8 @@ void shell_init(){
         } else {
             cmd_unknown(buffer, cmd_len);
         }
+
+        printf("%sshell@%sbleed-kernel%s$ ", RGB_FG(212, 44, 44), GRAY_FG, RESET);
     }
 }
 
@@ -46,7 +47,7 @@ __attribute__((noreturn))
 void _start(void) {
     printf("Welcome to %sBleed-Kernel%s\nRunning Userspace Shell:%sVerdict%s\nCheck us out at bleedkernel.com\n",
     RGB_FG(212, 44, 44), RESET, RGB_FG(212, 44, 44), RESET);
-
+    printf("%sshell@%sbleed-kernel%s$ ", RGB_FG(212, 44, 44), GRAY_FG, RESET);
     shell_init();
     __builtin_unreachable();
 }

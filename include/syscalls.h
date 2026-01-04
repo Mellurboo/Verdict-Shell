@@ -6,6 +6,7 @@ enum {
     SYS_EXIT,
     SYS_CLEAR,
     SYS_YIELD,
+    SYS_SPAWN,
 };
 
 static inline long syscall_read(int fd, void *buf, unsigned long len) {
@@ -65,4 +66,15 @@ static inline void syscall_yield() {
         : "rcx", "r11", "memory"
     );
     __builtin_unreachable();
+}
+
+static inline int syscall_spawn(const char *path) {
+    int pid;
+    asm volatile(
+        "int $0x80"
+        : "=a"(pid)
+        : "a"(SYS_SPAWN), "D"(path)
+        : "rcx", "r11", "memory"
+    );
+    return pid;
 }
