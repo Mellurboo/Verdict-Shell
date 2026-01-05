@@ -7,6 +7,7 @@ enum {
     SYS_CLEAR,
     SYS_YIELD,
     SYS_SPAWN,
+    SYS_WAITPID,
 };
 
 static inline long syscall_read(int fd, void *buf, unsigned long len) {
@@ -77,4 +78,16 @@ static inline int syscall_spawn(const char *path) {
         : "rcx", "r11", "memory"
     );
     return pid;
+}
+
+static inline long syscall_waitpid(long pid){
+    long ret;
+    asm volatile(
+        "int $0x80"
+        : "=a"(ret)
+        : "a"(SYS_WAITPID), "D"(pid)
+        : "memory"
+    );
+
+    return ret;
 }

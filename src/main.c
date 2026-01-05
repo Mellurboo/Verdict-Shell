@@ -25,6 +25,13 @@ void shell_init(){
         if (*args == ' ') args++, bytes -= (args - buffer);
         else bytes = 0;
 
+        if (cmd_len >= 2 && buffer[0] == '.' && buffer[1] == '/') {
+            const char *path = buffer + 2;
+
+            syscall_spawn(path);
+            continue;
+        }
+
         command_t func = 0;
         for (long i = 0; i < COMMAND_COUNT; i++) {
             if (strncmp_fs(buffer, commands[i].name, cmd_len) == 0 && commands[i].name[cmd_len] == '\0') {
