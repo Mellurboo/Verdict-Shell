@@ -5,9 +5,11 @@ enum {
     SYS_WRITE,
     SYS_EXIT,
     SYS_CLEAR,
-    SYS_YIELD,
+    SYS_YEILD,
     SYS_SPAWN,
     SYS_WAITPID,
+    SYS_SHUTDOWN,
+    SYS_REBOOT,
 };
 
 static inline long syscall_read(int fd, void *buf, unsigned long len) {
@@ -63,7 +65,7 @@ static inline void syscall_yield() {
     __asm__ volatile (
         "int $0x80"
         :
-        : "a"(SYS_YIELD)
+        : "a"(SYS_YEILD)
         : "rcx", "r11", "memory"
     );
     __builtin_unreachable();
@@ -90,4 +92,24 @@ static inline long syscall_waitpid(long pid){
     );
 
     return ret;
+}
+
+static inline void syscall_shutdown() {
+    __asm__ volatile (
+        "int $0x80"
+        :
+        : "a"(SYS_SHUTDOWN)
+        : "rcx", "r11", "memory"
+    );
+    __builtin_unreachable();
+}
+
+static inline void syscall_reboot() {
+    __asm__ volatile (
+        "int $0x80"
+        :
+        : "a"(SYS_REBOOT)
+        : "rcx", "r11", "memory"
+    );
+    __builtin_unreachable();
 }
