@@ -51,7 +51,7 @@ void shell_init(){
 }
 
 __attribute__((noreturn))
-void _start(void) {
+int main() {
     printf("Welcome to %sBleed-Kernel%s\nRunning Userspace Shell:%sVerdict%s\nCheck us out at bleedkernel.com\n",
     RGB_FG(212, 44, 44), RESET, RGB_FG(212, 44, 44), RESET);
     printf("%sshell@%sbleed-kernel%s$ ", RGB_FG(212, 44, 44), GRAY_FG, RESET);

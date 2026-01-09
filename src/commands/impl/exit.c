@@ -1,6 +1,6 @@
 #include <syscalls.h>
+#include <exit.h>
 
-void cmd_exit(const char *args, long args_len) {
-    (void)args; (void)args_len;
-    syscall_exit(0);
+void cmd_exit() {
+    _exit(0);
 }

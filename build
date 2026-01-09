@@ -1,0 +1,4 @@
+make clean
+make build
+
+cp bin/verdict ~/git/Bleed-Kernel/initrd/bin/

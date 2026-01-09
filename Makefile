@@ -1,49 +1,56 @@
-#
-# Target Output Details
-#
+
 ELF_TARGET_64 = verdict
-#
-# Flag Options for Compilers
-#
-CFLAGS ?=
-COMMON_CFLAGS = -static -Wall -nostdlib -ffreestanding -fno-stack-check -fno-stack-protector -Wextra -Werror -I include
+
+
+CC ?= x86_64-elf-gcc
 
 ELF_BIN_DIR_64 = bin
 ELF_OBJ_DIR_64 = $(ELF_BIN_DIR_64)/obj
 
-#
-# Detect Source files in Code, this is very broad
-# and will just compile anything it finds
-#
-SRCS = $(shell find src -name '*.c')
+LIB_DIR = sysroot/lib
+LIBC = $(LIB_DIR)/blibc.a
+CRT0 = $(LIB_DIR)/start.o
 
-ELF_OBJS_64 = $(patsubst src/%.c, $(ELF_OBJ_DIR_64)/%.gcc.o, $(SRCS))
+
+COMMON_CFLAGS = \
+	-ffreestanding \
+	-fno-stack-protector \
+	-fno-stack-check \
+	-Wall -Wextra -Werror \
+	-nostdlib \
+	-no-pie \
+	-m64 \
+	-Iinclude \
+	-Isysroot/include
+
+LDFLAGS = \
+	-static \
+	-nostdlib \
+	-no-pie \
+	-m64 \
+	-L$(LIB_DIR) \
+	-Isysroot/include
+
+SRCS = $(shell find src -name '*.c')
+ELF_OBJS_64 = $(patsubst src/%.c,$(ELF_OBJ_DIR_64)/%.o,$(SRCS))
 
 all: $(ELF_TARGET_64)
 
-#
-# Build ELF
-#
-$(ELF_TARGET_64): $(ELF_OBJS_64)
+$(ELF_TARGET_64): $(CRT0) $(ELF_OBJS_64)
 	@mkdir -p $(ELF_BIN_DIR_64)
-	$(CC) $(COMMON_CFLAGS) $(CFLAGS) -m64 -o $(ELF_BIN_DIR_64)/$(ELF_TARGET_64) $^
+	$(CC) $(LDFLAGS) \
+		-o $(ELF_BIN_DIR_64)/$(ELF_TARGET_64) \
+		$(CRT0) \
+		$(ELF_OBJS_64) \
+		-l:blibc.a
 
-#
-# Object build rules per architecture
-#
-$(ELF_OBJ_DIR_64)/%.gcc.o: src/%.c
+$(ELF_OBJ_DIR_64)/%.o: src/%.c
 	@mkdir -p $(dir $@)
-	$(CC) $(COMMON_CFLAGS) $(CFLAGS) -m64 -c $< -o $@
-
+	$(CC) $(COMMON_CFLAGS) -c $< -o $@
 
 build: $(ELF_TARGET_64)
-	@./$(ELF_BIN_DIR_64)/$(ELF_TARGET_64)
 
-#
-# Clean
-#
 clean:
 	rm -rf bin
-	rm -rf .vscode
 
-.PHONY: all clean -fno-stack-check debug
+.PHONY: all clean
