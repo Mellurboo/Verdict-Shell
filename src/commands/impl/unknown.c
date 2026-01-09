@@ -1,4 +1,3 @@
-#include <syscalls.h>
 #include <commands/commands.h>
 #include <string.h>
 #include <ansii.h>

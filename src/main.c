@@ -1,9 +1,10 @@
-#include <syscalls.h>
 #include <stdint.h>
 #include <string.h>
 #include <commands/commands.h>
 #include <ansii.h>
 #include <printf.h>
+#include <read.h>
+#include <spawn.h>
 
 void shell_init(){
     char buffer[BUFFER_SIZE];
@@ -12,7 +13,7 @@ void shell_init(){
     while (1) {
 
         bytes = 0;
-        while ((bytes = syscall_read(0, buffer, sizeof(buffer)-1)) == 0){ } // maybe this syscall should be blocking, it would make sense, for now lets wait
+        while ((bytes = _read(0, buffer, sizeof(buffer)-1)) == 0){ } // maybe this syscall should be blocking, it would make sense, for now lets wait
 
         buffer[bytes] = '\0';
         if (bytes > 0 && buffer[bytes-1] == '\n') buffer[--bytes] = '\0';
@@ -28,7 +29,7 @@ void shell_init(){
         if (cmd_len >= 2 && buffer[0] == '.' && buffer[1] == '/') {
             const char *path = buffer + 2;
 
-            syscall_spawn(path);
+            _spawn(path);
             continue;
         }
 

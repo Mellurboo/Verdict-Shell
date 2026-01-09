@@ -1,6 +1,5 @@
 #include <string.h>
 #include <stdarg.h>
-#include <syscalls.h>
 #include <write.h>
 
 static void putc(char c) {
