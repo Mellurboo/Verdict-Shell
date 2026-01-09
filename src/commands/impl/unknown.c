@@ -2,7 +2,7 @@
 #include <commands/commands.h>
 #include <string.h>
 #include <ansii.h>
-#include <libc/printf.h>
+#include <printf.h>
 
 void cmd_unknown(const char *cmd, long cmd_len) {
     (void)cmd; (void)cmd_len;

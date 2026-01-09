@@ -1,9 +1,9 @@
 #include <syscalls.h>
 #include <stdint.h>
-#include <libc/string.h>
+#include <string.h>
 #include <commands/commands.h>
 #include <ansii.h>
-#include <libc/printf.h>
+#include <printf.h>
 
 void shell_init(){
     char buffer[BUFFER_SIZE];

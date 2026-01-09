@@ -1,13 +1,14 @@
 #include <string.h>
 #include <stdarg.h>
 #include <syscalls.h>
+#include <write.h>
 
 static void putc(char c) {
-    syscall_write(1, &c, 1);
+    _write(1, &c, 1);
 }
 
 static void putsn(const char *s, long n) {
-    syscall_write(1, s, n);
+    _write(1, s, n);
 }
 
 static void print_uint(unsigned long v, int base) {

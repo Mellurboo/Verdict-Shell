@@ -21,15 +21,16 @@ COMMON_CFLAGS = \
 	-no-pie \
 	-m64 \
 	-Iinclude \
-	-Isysroot/include
+	-Isysroot/libc
 
 LDFLAGS = \
 	-static \
 	-nostdlib \
 	-no-pie \
 	-m64 \
+	-Iinclude \
 	-L$(LIB_DIR) \
-	-Isysroot/include
+	-Isysroot/libc
 
 SRCS = $(shell find src -name '*.c')
 ELF_OBJS_64 = $(patsubst src/%.c,$(ELF_OBJ_DIR_64)/%.o,$(SRCS))

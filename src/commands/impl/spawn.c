@@ -1,6 +1,6 @@
 #include <syscalls.h>
-#include <libc/printf.h>
 #include <ansii.h>
+#include <printf.h>
 
 void cmd_spawn(const char *path, long args_len){
     (void)args_len;
