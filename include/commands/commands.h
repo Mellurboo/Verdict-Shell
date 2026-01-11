@@ -21,3 +21,4 @@ void cmd_unknown(const char *args, long args_len);
 void cmd_spawn(const char *path, long args_len);
 void cmd_shutdown(const char *path, long args_len);
 void cmd_reboot(const char *path, long args_len);
+void cmd_kill(const char *args, long cmd_len);

@@ -7,6 +7,7 @@ struct command commands[] = {
     { "spawn", cmd_spawn },
     { "shutdown", cmd_shutdown},
     { "reboot", cmd_reboot},
+    { "kill", cmd_kill}
 };
 
 const long COMMAND_COUNT = sizeof(commands)/sizeof(commands[0]);
