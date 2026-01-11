@@ -1,6 +1,6 @@
-#include <clear.h>
+#include <printf.h>
 
 void cmd_clear(const char *args, long args_len) {
     (void)args; (void)args_len;
-    _clear(1);
+    printf("\x1b[Jm");
 }
