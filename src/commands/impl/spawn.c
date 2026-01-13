@@ -11,7 +11,5 @@ void cmd_spawn(const char *path, long args_len){
         printf(LOG_ERROR "Kernel Attempted to start Program but got error code: %d", pid);
         return;
     }
-
-    _waitpid(pid);
     return;
 }
