@@ -1,7 +1,7 @@
 #include <ansii.h>
 #include <printf.h>
-#include <spawn.h>
-#include <waitpid.h>
+#include <syscalls/spawn.h>
+#include <syscalls/waitpid.h>
 
 void cmd_spawn(const char *path, long args_len){
     (void)args_len;

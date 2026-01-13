@@ -3,9 +3,10 @@
 #include <commands/commands.h>
 #include <ansii.h>
 #include <printf.h>
-#include <read.h>
-#include <spawn.h>
-#include <waitpid.h>
+#include <syscalls/read.h>
+#include <syscalls/spawn.h>
+#include <syscalls/waitpid.h>
+#include <syscalls/time.h>
 
 void shell_init(){
     char buffer[BUFFER_SIZE];

@@ -1,6 +1,6 @@
 #include <string.h>
 #include <stdarg.h>
-#include <write.h>
+#include <syscalls/write.h>
 
 static void putc(char c) {
     _write(1, &c, 1);
