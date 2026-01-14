@@ -32,8 +32,8 @@ void shell_init(){
 
         if (cmd_len >= 2 && buffer[0] == '.' && buffer[1] == '/') {
             int pid = _spawn(buffer + 2);
-            _waitpid(pid);
             handled = 1;
+            _waitpid(pid);
         }
 
         if (!handled) {
