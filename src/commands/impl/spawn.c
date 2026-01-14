@@ -1,5 +1,5 @@
 #include <ansii.h>
-#include <printf.h>
+#include <stdio.h>
 #include <syscalls/spawn.h>
 #include <syscalls/waitpid.h>
 

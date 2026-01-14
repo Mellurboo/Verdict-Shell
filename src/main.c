@@ -1,9 +1,9 @@
 #include <stdint.h>
 #include <string.h>
-#include <stdlib/stdlib.h>
+#include <stdlib.h>
 #include <commands/commands.h>
 #include <ansii.h>
-#include <printf.h>
+#include <stdio.h>
 #include <syscalls/read.h>
 #include <syscalls/spawn.h>
 #include <syscalls/waitpid.h>
