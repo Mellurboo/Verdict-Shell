@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include <string.h>
+#include <stdlib/stdlib.h>
 #include <commands/commands.h>
 #include <ansii.h>
 #include <printf.h>
@@ -38,7 +39,7 @@ void shell_init(){
         if (!handled) {
             command_t func = 0;
             for (long i = 0; i < COMMAND_COUNT; i++) {
-                if (strncmp_fs(buffer, commands[i].name, cmd_len) == 0 &&
+                if (strncmp(buffer, commands[i].name, cmd_len) == 0 &&
                     commands[i].name[cmd_len] == '\0') {
                     func = commands[i].func;
                     break;
