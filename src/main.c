@@ -7,7 +7,7 @@
 void prompt(void) {
     char cwd[4096];     // hardcoded pathmax lol add it to libc later
     if (!_getcwd(cwd, sizeof(cwd))) strcpy(cwd, "?");
-    printf("["RGB_FG(212, 44, 44) "shell" RESET "@bleed-kernel" RGB_FG(212, 44, 44)"%s" RESET"]# ", cwd);
+    printf("["RGB_FG(212, 44, 44) "shell" GRAY_FG "@bleed-kernel" RGB_FG(212, 44, 44)"%s" RESET"]# ", cwd);
 }
 
 int main(void) {
