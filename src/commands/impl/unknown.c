@@ -2,9 +2,10 @@
 #include <string.h>
 #include <ansii.h>
 #include <stdio.h>
+#include <commands/commands.h>
 
-void cmd_unknown(const char *cmd, long cmd_len) {
-    (void)cmd; (void)cmd_len;
-
+int cmd_unknown(shell_cmd_t *cmd) {
+    (void)cmd;
     printf("%s%s:%s Unknown Command\n", cmd, LIGHT_GRAY_FG, RESET);
+    return 0;
 }

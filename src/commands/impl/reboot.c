@@ -1,5 +1,8 @@
 #include <syscalls/reboot.h>
-void cmd_reboot(const char *path, long args_len){
-    (void)path; (void)args_len;
+#include <commands/commands.h>
+
+int cmd_reboot(shell_cmd_t *cmd){
+    (void)cmd;
     _reboot();
+    return 0;
 }

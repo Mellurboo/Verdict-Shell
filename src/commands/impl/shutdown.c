@@ -1,5 +1,8 @@
 #include <syscalls/shutdown.h>
-void cmd_shutdown(const char *path, long args_len){
-    (void)path; (void)args_len;
+#include <commands/commands.h>
+
+int cmd_shutdown(shell_cmd_t *cmd){
+    (void)cmd;
     _shutdown();
+    return 0;
 }

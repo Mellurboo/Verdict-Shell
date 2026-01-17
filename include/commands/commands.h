@@ -1,25 +1,11 @@
 #pragma once
-#include <stdint.h>
+#include <main.h>
 
-#define BUFFER_SIZE 128
+typedef int (*builtin_fn)(shell_cmd_t *);
 
-typedef void (*command_t)(const char *args, long args_len);
-
-struct command {
+typedef struct {
     const char *name;
-    command_t func;
-};
+    builtin_fn fn;
+} builtin_t;
 
-extern struct command commands[];
-extern const long COMMAND_COUNT;
-
-// Command functions
-void cmd_exit(const char *args, long args_len);
-void cmd_clear(const char *args, long args_len);
-void cmd_echo(const char *args, long args_len);
-void cmd_unknown(const char *args, long args_len);
-void cmd_spawn(const char *path, long args_len);
-void cmd_shutdown(const char *path, long args_len);
-void cmd_reboot(const char *path, long args_len);
-void cmd_kill(const char *args, long cmd_len);
-void cmd_cat(const char *args, long args_len);
+int builtin_dispatch(shell_cmd_t *cmd);
